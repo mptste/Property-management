@@ -1,4 +1,4 @@
-package com.company.propertymanagement.Entity;
+package com.company.propertymanagement.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,5 +20,9 @@ public class PropertyEntity {
     private String description;
     private Double price;
     private String address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private UserEntity userEntity;
 
 }

@@ -1,4 +1,4 @@
-package com.company.propertymanagement.Model;
+package com.company.propertymanagement.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,4 +13,5 @@ public class PropertyDTO {
     private String description;
     private Double price;
     private String address;
+    private Long userId;
 }

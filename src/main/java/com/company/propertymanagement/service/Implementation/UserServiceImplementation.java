@@ -1,12 +1,14 @@
-package com.company.propertymanagement.Service.Implementation;
+package com.company.propertymanagement.service.Implementation;
 
-import com.company.propertymanagement.Converter.UserConverter;
-import com.company.propertymanagement.Entity.UserEntity;
-import com.company.propertymanagement.Exception.BusinessException;
-import com.company.propertymanagement.Exception.ErrorModel;
-import com.company.propertymanagement.Model.UserDTO;
-import com.company.propertymanagement.Repository.UserRepository;
-import com.company.propertymanagement.Service.UserService;
+import com.company.propertymanagement.converter.UserConverter;
+import com.company.propertymanagement.entity.AddressEntity;
+import com.company.propertymanagement.entity.UserEntity;
+import com.company.propertymanagement.exception.BusinessException;
+import com.company.propertymanagement.exception.ErrorModel;
+import com.company.propertymanagement.model.UserDTO;
+import com.company.propertymanagement.repository.AddressRepository;
+import com.company.propertymanagement.repository.UserRepository;
+import com.company.propertymanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Autowired
     private UserConverter userConverter;
@@ -35,9 +40,23 @@ public class UserServiceImplementation implements UserService {
 
             throw new BusinessException(errorModelList);
         }
+
+
         UserEntity userEntity = userConverter.convertDTOtoEntity(userDTO);
         userEntity = userRepository.save(userEntity);
+
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setHouseNum(userDTO.getHouseNum());
+        addressEntity.setCity(userDTO.getCity());
+        addressEntity.setZipCode(userDTO.getZipCode());
+        addressEntity.setStreet(userDTO.getStreet());
+        addressEntity.setCountry(userDTO.getCountry());
+
+        addressRepository.save(addressEntity);
+
         userDTO = userConverter.convertEntityToDTO(userEntity);
+
+
         return userDTO;
     }
 

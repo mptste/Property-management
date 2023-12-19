@@ -1,7 +1,7 @@
-package com.company.propertymanagement.Controller;
+package com.company.propertymanagement.controller;
 
-import com.company.propertymanagement.Model.UserDTO;
-import com.company.propertymanagement.Service.UserService;
+import com.company.propertymanagement.model.UserDTO;
+import com.company.propertymanagement.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
