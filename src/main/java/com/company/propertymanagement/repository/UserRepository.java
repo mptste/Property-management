@@ -1,6 +1,6 @@
-package com.company.propertymanagement.Repository;
+package com.company.propertymanagement.repository;
 
-import com.company.propertymanagement.Entity.UserEntity;
+import com.company.propertymanagement.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.company.propertymanagement.Converter;
+package com.company.propertymanagement.converter;
 
-import com.company.propertymanagement.Entity.UserEntity;
-import com.company.propertymanagement.Model.UserDTO;
+import com.company.propertymanagement.entity.UserEntity;
+import com.company.propertymanagement.model.UserDTO;
 import org.springframework.stereotype.Component;
 
 @Component

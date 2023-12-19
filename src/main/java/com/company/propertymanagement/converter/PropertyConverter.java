@@ -1,7 +1,7 @@
-package com.company.propertymanagement.Converter;
+package com.company.propertymanagement.converter;
 
-import com.company.propertymanagement.Entity.PropertyEntity;
-import com.company.propertymanagement.Model.PropertyDTO;
+import com.company.propertymanagement.entity.PropertyEntity;
+import com.company.propertymanagement.model.PropertyDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,6 +26,7 @@ public class PropertyConverter {
         propertyDTO.setAddress(propertyEntity.getAddress());
         propertyDTO.setPrice(propertyEntity.getPrice());
         propertyDTO.setDescription(propertyEntity.getDescription());
+        propertyDTO.setUserId(propertyEntity.getUserEntity().getId());
 
         return propertyDTO;
 

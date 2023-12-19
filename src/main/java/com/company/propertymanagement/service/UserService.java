@@ -1,6 +1,6 @@
-package com.company.propertymanagement.Service;
+package com.company.propertymanagement.service;
 
-import com.company.propertymanagement.Model.UserDTO;
+import com.company.propertymanagement.model.UserDTO;
 
 public interface UserService {
 

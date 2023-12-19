@@ -1,4 +1,4 @@
-package com.company.propertymanagement.Model;
+package com.company.propertymanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Getter
 @Setter
@@ -25,5 +24,12 @@ public class UserDTO {
     @NotBlank(message = "Password can't be blank")
     @NotEmpty(message = "Password field cannot be empty")
     private String password;
+
+    private String houseNum;
+    private String street;
+    private String city;
+    private String zipCode;
+    private String country;
+
 
 }
