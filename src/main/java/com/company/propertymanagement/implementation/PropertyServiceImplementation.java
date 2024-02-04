@@ -76,7 +76,7 @@ public class PropertyServiceImplementation implements PropertyService {
 
     @Override
     public List<PropertyDTO> getAllPropertiesForUser(Long userId) {
-        List<PropertyEntity> listOfProperties = (List<PropertyEntity>) propertyRepository.findAllByUserEntityId(userId);
+        List<PropertyEntity> listOfProperties = propertyRepository.findAllByUserEntityId(userId);
         List<PropertyDTO> propList = new ArrayList<>();
 
         for (PropertyEntity pe : listOfProperties) {

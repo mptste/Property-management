@@ -1,4 +1,4 @@
-package com.company.propertymanagement.service.Implementation;
+package com.company.propertymanagement.service.implementation;
 
 import com.company.propertymanagement.converter.UserConverter;
 import com.company.propertymanagement.entity.AddressEntity;
@@ -62,7 +62,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public UserDTO login(String email, String password) {
-        UserDTO userDTO = null;
+        UserDTO userDTO;
         Optional<UserEntity> optionalUserEntity = userRepository.findByOwnerEmailAndPassword(email, password);
         if (optionalUserEntity.isPresent()) {
             userDTO = userConverter.convertEntityToDTO(optionalUserEntity.get());
