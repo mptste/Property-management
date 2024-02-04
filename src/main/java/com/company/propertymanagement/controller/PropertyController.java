@@ -23,10 +23,6 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-    public PropertyController(String dummy) {
-        this.dummy = dummy;
-    }
-
     @GetMapping("/hello")
     public String sayHello() {
         return "Hello";
