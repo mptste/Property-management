@@ -24,7 +24,9 @@ public class JWTUserEntity {
     private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_to_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_to_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
 
