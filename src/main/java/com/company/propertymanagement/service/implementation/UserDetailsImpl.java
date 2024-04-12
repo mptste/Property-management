@@ -3,14 +3,19 @@ package com.company.propertymanagement.service.implementation;
 
 import com.company.propertymanagement.entity.JWTUserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class UserDetailsImplementation implements UserDetails {
+@AllArgsConstructor
+@Data
+public class UserDetailsImpl implements UserDetails {
 
     private Long id;
     private String firstName;
@@ -19,42 +24,52 @@ public class UserDetailsImplementation implements UserDetails {
     private String phone;
     @JsonIgnore
     private String password;
-
     private Collection<? extends GrantedAuthority> authorities;
+
+    public static UserDetailsImpl build(JWTUserEntity jwtUser) {
+        List<GrantedAuthority> authorities = jwtUser.getRoles().stream()
+                .map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getRoleName().name()))
+                .collect(Collectors.toList());
+        return new UserDetailsImpl(
+                jwtUser.getId(), jwtUser.getFirstName(), jwtUser.getLastName(),
+                jwtUser.getEmail(), jwtUser.getPhone(), jwtUser.getPassword(),
+                authorities
+        );
+    }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
