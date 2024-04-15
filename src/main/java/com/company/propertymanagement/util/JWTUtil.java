@@ -1,8 +1,9 @@
 package com.company.propertymanagement.util;
 
 import com.company.propertymanagement.service.implementation.UserDetailsImpl;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.MalformedKeyException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -41,10 +42,38 @@ public class JWTUtil {
     }
 
     public String getUsernameFromJWToken(String token) {
+        String username = null;
+        try {
+            username = Jwts.parser().setSigningKey(jwtSecret).build().parseClaimsJws(token)
+                    .getBody().getSubject();
+        } catch (Exception e) {
+            log.error("An error occurred.");
+        }
+        return username;
+    }
 
-
-
-        return token;
+    public boolean validateJwtToken(String token) {
+        try {
+            Jws<Claims> claimsJws = Jwts.parser()
+                    .setSigningKey(jwtSecret.getBytes())
+                    .build()
+                    .parseClaimsJws(token);
+            // If the parsing succeeds, the token is valid
+            return true;
+        } catch (SignatureException e) {
+            // If an exception occurs during parsing, the token is invalid
+            log.error("Invalid JWT signature: {}", e.getMessage());
+            return false;
+        } catch (MalformedKeyException e) {
+            log.error("Invalid JWT token: {}", e.getMessage());
+        } catch (ExpiredJwtException e) {
+            log.error("JWT token expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            log.error("JWT token not supported: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            log.error("JWT claims string is empty: {}", e.getMessage());
+        }
+        return false;
     }
 
 }
