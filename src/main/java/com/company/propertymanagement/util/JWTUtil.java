@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Component
@@ -15,17 +17,32 @@ import java.util.Date;
 public class JWTUtil {
 
     @Value("${app.JWTSecret}")
-    private String JWTSecret;
+    private String jwtSecret;
     @Value("${app.JWTExpirationMs}")
-    private int JWTExpirationMs;
+    private int jwtExpirationMs;
+
+    // public String generateJWTToken(Authentication authentication) {
+    //    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+    //    return Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date())
+    //            .setExpiration(new Date((new Date().getTime() + jwtExpirationMs))).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+    // }
 
     public String generateJWTToken(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        return Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date().getTime() + JWTExpirationMs))).signWith(SignatureAlgorithm.HS512, JWTSecret).compact();
+        Instant now = Instant.now();
+        Instant expiry = now.plus(jwtExpirationMs, ChronoUnit.MILLIS);
+
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(expiry))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
     }
 
     public String getUsernameFromJWToken(String token) {
+
+
 
         return token;
     }
