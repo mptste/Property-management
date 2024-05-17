@@ -1,5 +1,7 @@
 package com.company.propertymanagement.controller;
 
+import com.company.propertymanagement.model.JWTResponseDTO;
+import com.company.propertymanagement.model.LoginDTO;
 import com.company.propertymanagement.model.SignupDTO;
 import com.company.propertymanagement.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,16 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    public void login() {
-
+    @PostMapping("/login")
+    public ResponseEntity<JWTResponseDTO> login(@RequestBody LoginDTO loginDTO) {
+        JWTResponseDTO jwtResponseDTO = authenticationService.login(loginDTO);
+        ResponseEntity re = new ResponseEntity(jwtResponseDTO, HttpStatus.OK);
+        return re;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignupDTO signupDTO) {
-        authenticationService.signup(signupDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+        Long userId = authenticationService.signup(signupDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully with ID: " + userId);
     }
 }

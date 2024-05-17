@@ -1,10 +1,11 @@
 package com.company.propertymanagement.service;
 
+import com.company.propertymanagement.model.JWTResponseDTO;
 import com.company.propertymanagement.model.LoginDTO;
 import com.company.propertymanagement.model.SignupDTO;
 
 public interface AuthenticationService {
 
-    public void login(LoginDTO loginDTO);
-    public void signup(SignupDTO signupDTO);
+    public JWTResponseDTO login(LoginDTO loginDTO);
+    public Long signup(SignupDTO signupDTO);
 }
