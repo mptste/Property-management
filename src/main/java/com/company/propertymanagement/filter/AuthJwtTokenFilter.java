@@ -3,6 +3,7 @@ package com.company.propertymanagement.filter;
 import com.company.propertymanagement.service.implementation.UserDetailsServiceImpl;
 import com.company.propertymanagement.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,10 +22,11 @@ import java.io.IOException;
 @Component
 public class AuthJwtTokenFilter extends OncePerRequestFilter {
 
-    private JWTUtil jwtUtil;
+    private final JWTUtil jwtUtil;
 
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
     public AuthJwtTokenFilter(JWTUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;

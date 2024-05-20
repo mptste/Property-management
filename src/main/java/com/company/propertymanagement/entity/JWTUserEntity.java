@@ -3,6 +3,7 @@ package com.company.propertymanagement.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.HashSet;

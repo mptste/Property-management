@@ -3,6 +3,7 @@ package com.company.propertymanagement.entity;
 import com.company.propertymanagement.enums.URole;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 

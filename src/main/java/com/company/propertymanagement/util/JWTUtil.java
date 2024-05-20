@@ -13,8 +13,12 @@ import java.util.Date;
 @Log4j2
 public class JWTUtil {
 
+//    @Value("${app.jwtSecret}")
+//    private String jwtSecret;
+
     @Value("${app.jwtSecret}")
     private String jwtSecret;
+
 
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
