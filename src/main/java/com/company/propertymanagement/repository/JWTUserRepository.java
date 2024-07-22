@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface JWTUserRepository extends JpaRepository<JWTUserEntity, Long> {
     Optional<JWTUserEntity> findByEmail(String email);
-
     Boolean existsByEmail(String email);
 }

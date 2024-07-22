@@ -78,6 +78,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if (signupDTO.getRole() != null && signupDTO.getRole().equals("ADMIN")) {
             optionalRole = roleRepository.findByRoleName(URole.ROLE_ADMIN);
+        } else if (signupDTO.getRole() != null && signupDTO.getRole().equals("MOD")) {
+            optionalRole = roleRepository.findByRoleName(URole.ROLE_MODERATOR);
         } else {
             optionalRole = roleRepository.findByRoleName(URole.ROLE_USER);
         }
